@@ -3,9 +3,10 @@
     "host": "localhost",
     "port": 5432,
     "username": "postgres",
-    "password": "password",
-    "database": "mydatabase",
-    "entities": ["src/entities/*.entity.ts"],
+    "password": "postgres",
+    "database": "EventPlannerDB",
+    "entities": ["/**/*.entity{.ts,.js}"],
+    "synchronize": true,
     "migrations": ["src/migrations/*.ts"],
     "cli": {
       "migrationsDir": "src/migrations"

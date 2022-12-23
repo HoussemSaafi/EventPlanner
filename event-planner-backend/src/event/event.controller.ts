@@ -9,7 +9,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { EventService } from './event-service.service';
-import { Event } from './event.entity';
+import { Event } from '../typeorm';
 
 @Controller('events')
 export class EventController {
