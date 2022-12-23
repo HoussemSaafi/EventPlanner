@@ -12,7 +12,17 @@ import { CalendarModule } from './calendar/calendar.module';
 import { SpecialAttendeeModule } from './special-attendee/special-attendee.module';
 
 @Module({
-  imports: [EventModule, AttendeeModule, OrganizerModule, ScheduleModule, StaffModule, SponsorModule, FeedbackModule, CalendarModule, SpecialAttendeeModule],
+  imports: [
+    EventModule,
+    AttendeeModule,
+    OrganizerModule,
+    ScheduleModule,
+    StaffModule,
+    SponsorModule,
+    FeedbackModule,
+    CalendarModule,
+    SpecialAttendeeModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,4 +1,9 @@
 import { Module } from '@nestjs/common';
 
-@Module({})
+import { AttendeeService } from './attendee-service.service';
+@Module({
+  imports: [],
+  controllers: [],
+  providers: [AttendeeService],
+})
 export class AttendeeModule {}
