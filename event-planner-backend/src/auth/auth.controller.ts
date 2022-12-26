@@ -6,7 +6,7 @@ import {
   HttpStatus,
   HttpException,
   Get,
-  Req,
+  Delete,
   Query,
 } from '@nestjs/common';
 import { Res } from '@nestjs/common/decorators';
@@ -55,5 +55,9 @@ export class AuthenticationController {
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+  @Delete()
+  async deleteAll() {
+    return this.authenticationService.deleteAll();
   }
 }

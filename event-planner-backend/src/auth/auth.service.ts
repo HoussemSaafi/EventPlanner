@@ -43,4 +43,8 @@ export class AuthenticationService {
   async isAdmin(user: User): Promise<boolean> {
     return user.role === 'admin';
   }
+
+  async deleteAll(): Promise<void> {
+    await this.userRepository.delete({});
+  }
 }

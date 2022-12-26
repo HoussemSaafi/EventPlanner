@@ -2,14 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventModule } from './event/event.module';
-import { AttendeeModule } from './attendee/attendee.module';
+import { UserModule } from './user/user.module';
 import { OrganizerModule } from './organizer/organizer.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { StaffModule } from './staff/staff.module';
 import { SponsorModule } from './sponsor/sponsor.module';
-import { FeedbackModule } from './feedback/feedback.module';
-import { CalendarModule } from './calendar/calendar.module';
-import { SpecialAttendeeModule } from './special-attendee/special-attendee.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -32,16 +29,13 @@ import entities from './typeorm';
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
     EventModule,
-    AttendeeModule,
+    UserModule,
     OrganizerModule,
     ScheduleModule,
     StaffModule,
     SponsorModule,
-    FeedbackModule,
-    CalendarModule,
-    SpecialAttendeeModule,
-    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
