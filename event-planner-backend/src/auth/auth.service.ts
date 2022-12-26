@@ -36,7 +36,6 @@ export class AuthenticationService {
   
   async getUser(token: string): Promise<User> {
     const payload = this.jwtService.verify(token);
-    console.log(payload);
     const user = await this.userRepository.findOne({ where: { email: payload.email }});
     return user;
   }

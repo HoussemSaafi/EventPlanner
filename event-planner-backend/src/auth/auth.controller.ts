@@ -9,6 +9,7 @@ import {
   Req,
   Query,
 } from '@nestjs/common';
+import { Res } from '@nestjs/common/decorators';
 import { User } from '../typeorm'
 import { AuthenticationService } from './auth.service';
 
@@ -40,15 +41,17 @@ export class AuthenticationController {
   }
 
   @Get('me')
-  async getProfile(@Query('access_token') token: string) {
-    console.log(token);
-    return this.authenticationService.getUser(token);
+  async getProfile(@Query('access_token') token: string, @Res() response) {
+    const user = await this.authenticationService.getUser(token);
+    const data = JSON.stringify(user);
+    return response.send(data);
   }
 
   @Get('is-admin')
-  async isAdmin(@Req() req) {
+  async isAdmin(@Query('access_token') token: string) {
     try {
-      return await this.authenticationService.isAdmin(req.user);
+      const user = await this.authenticationService.getUser(token); 
+      return await this.authenticationService.isAdmin(user);
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
