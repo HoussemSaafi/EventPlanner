@@ -10,7 +10,8 @@ import { SponsorModule } from './sponsor/sponsor.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { SpecialAttendeeModule } from './special-attendee/special-attendee.module';
-import { ConfigModule, ConfigService  } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
 
@@ -40,6 +41,7 @@ import entities from './typeorm';
     FeedbackModule,
     CalendarModule,
     SpecialAttendeeModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
