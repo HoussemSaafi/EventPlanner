@@ -20,7 +20,7 @@ export class AuthenticationController {
   @Post('register')
   async register(@Body() body) {
     try {
-      await this.authenticationService.createUser(body.email, body.password, body.role);
+      await this.authenticationService.createUser(body.email, body.password, body.firstName, body.lastName, body.facebookLink, body.instaLink, body.linkedinLink, body.image, body.role);
       return { message: 'User created successfully' };
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -13,9 +13,9 @@ export class AuthenticationService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async createUser(email: string, password: string, role : string): Promise<void> {
+  async createUser(email: string, password: string, firstName:string, lastName:string, facebookLink:string, instaLink:string, linkedinLink:string, image:string, role : string): Promise<void> {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = this.userRepository.create({ email, password: hashedPassword, role });
+    const newUser = this.userRepository.create({ email, password: hashedPassword, firstName, lastName, facebookLink, instaLink, linkedinLink, image, role });
     await this.userRepository.save(newUser);
   }
 
