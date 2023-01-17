@@ -19,23 +19,26 @@ export class User {
   @Column()
   lastName:string;
 
-  @Column()
+  @Column({nullable: true})
   facebookLink:string;
 
-  @Column()
+  @Column({nullable: true})
   instaLink:string;
 
-  @Column()
+  @Column({nullable: true})
   linkedinLink:string;
 
   @Column()
   role: string;
 
-  @Column()
+  @Column({nullable: true})
   image:string;
 
 
-  @ManyToMany(type => Event)
+  @ManyToMany(type => Event,{
+    nullable: true,
+    onDelete: 'SET NULL'
+  })
   @JoinTable()
   events: Event[];
 }

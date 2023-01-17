@@ -19,35 +19,56 @@ export class Event {
   dateEnd:Date;
 
   @Column()
+  isFree: boolean;
+
+  @Column({ nullable: true })
+  goal:string;
+
+  @Column({ nullable: true })
   location: string;
 
-  @Column()
+  @Column({ nullable: true })
   description:string;
 
-  @Column()
+  @Column({ nullable: true })
   organizer:string;
-  
-  @Column()
+
+  @Column({ nullable: true })
   venue: string;
 
-  @OneToOne(() => Schedule)
+  @OneToOne(() => Schedule,{
+    nullable: true,
+    onDelete: 'SET NULL'
+  })
   @JoinColumn()
   schedule:Schedule;
 
-  @ManyToMany(type => User)
+  @ManyToMany(type => User,{
+    nullable: true,
+    onDelete: 'SET NULL'
+  })
   @JoinTable()
   attendees: User[];
 
-  @ManyToMany(type => Speaker)
+  @ManyToMany(type => Speaker,{
+    nullable: true,
+    onDelete: 'SET NULL'
+  })
   @JoinTable()
   speakers:Speaker[];
   
 
-  @ManyToMany(type => Sponsor)
+  @ManyToMany(type => Sponsor,{
+    nullable: true,
+    onDelete: 'SET NULL'
+  })
   @JoinTable()
   sponsors:Sponsor[];
 
-  @ManyToMany(type => User)
+  @ManyToMany(type => User, {
+  nullable: true,
+  onDelete: 'SET NULL'
+})
   @JoinTable()
   staff:User[];
 

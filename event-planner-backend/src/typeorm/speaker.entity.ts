@@ -15,15 +15,15 @@ export class Speaker {
   @Column()
   job: string;
 
-  @Column()
+  @Column({nullable: true})
   company:string;
 
-  @Column()
+  @Column({nullable: true})
   description:string;
   
-  @Column()
+  @Column({nullable: true})
   linkedinLink:string;
 
-  @Column()
+  @Column({nullable: true})
   image:string;
 }

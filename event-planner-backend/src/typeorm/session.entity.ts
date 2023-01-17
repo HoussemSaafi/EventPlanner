@@ -7,7 +7,7 @@ export class SessionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable: true})
   activity: string;
 
   @Column()
@@ -17,7 +17,7 @@ export class SessionEntity {
   title: string;  
   
   
-  @Column()
+  @Column({nullable: true})
   description: string;  
 
   @Column()
@@ -26,7 +26,10 @@ export class SessionEntity {
   @Column()
   endTime:string;
 
-  @ManyToOne(type => Speaker)
+  @ManyToOne(type => Speaker,{
+    nullable: true,
+    onDelete: 'SET NULL'
+  })
   @JoinTable()
   speaker:Speaker;
   

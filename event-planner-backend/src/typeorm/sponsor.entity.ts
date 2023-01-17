@@ -9,7 +9,7 @@ export class Sponsor {
   @Column()
   name: string;
 
-  @Column()
+  @Column({nullable: true})
   logo: string;
 }
 
