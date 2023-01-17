@@ -1,5 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { Entity, Column, PrimaryGeneratedColumn, JoinTable, ManyToMany, OneToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinTable,
+  ManyToMany,
+  OneToOne,
+  JoinColumn,
+  ManyToOne
+} from 'typeorm';
+import { Admin } from './admin.entity';
 import { Schedule } from './schedule.entity';
 import { Speaker } from './speaker.entity';
 import { Sponsor } from './sponsor.entity';
@@ -30,8 +40,8 @@ export class Event {
   @Column({ nullable: true })
   description:string;
 
-  @Column({ nullable: true })
-  organizer:string;
+  @ManyToOne(type => Admin)
+  organizer:Admin;
 
   @Column({ nullable: true })
   venue: string;
