@@ -26,18 +26,6 @@ export class AuthenticationController {
     }
   }
 
-  @Post('login')
-  async login(@Body() body) {
-    try {
-      const user = await this.authenticationService.validateUserAdmin(body.email, body.password);
-      if (!user) {
-        throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-      }
-      return this.authenticationService.login(user);
-    } catch (error) {
-      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
 
   @Post('register/admin')
   async registerAdmin(@Body() body) {
@@ -49,22 +37,42 @@ export class AuthenticationController {
     }
   }
 
-  @Post('login/admin')
-  async loginAdmin(@Body() body) {
+  @Post('login/user')
+  async userLogin(@Body() body) {
     try {
-      const admin = await this.authenticationService.validateUserAdmin(body.email, body.password);
-      if (!admin) {
+      const user = await this.authenticationService.validateUser(body.email, body.password);
+      if (!user) {
         throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
       }
-      return this.authenticationService.login(admin);
+      return this.authenticationService.loginUser(user);
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  @Get('me')
-  async getProfile(@Query('access_token') token: string, @Res() response) {
-    const user = await this.authenticationService.getUserAdmin(token);
+  @Post('login/admin')
+  async adminLogin(@Body() body) {
+    try {
+      const admin = await this.authenticationService.validateAdmin(body.email, body.password);
+      if (!admin) {
+        throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+      }
+      return this.authenticationService.loginAdmin(admin);
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Get('meUser')
+  async getProfileUser(@Query('access_token') token: string, @Res() response) {
+    const user = await this.authenticationService.getUser(token);
+    const data = JSON.stringify(user);
+    return response.send(data);
+  }
+
+  @Get('meAdmin')
+  async getProfileAdmin(@Query('access_token') token: string, @Res() response) {
+    const user = await this.authenticationService.getAdmin(token);
     const data = JSON.stringify(user);
     return response.send(data);
   }
@@ -72,8 +80,8 @@ export class AuthenticationController {
   @Get('is-admin')
   async isAdmin(@Query('access_token') token: string) {
     try {
-      const user = await this.authenticationService.getUserAdmin(token);
-      return await this.authenticationService.isAdmin(user);
+      const admin = await this.authenticationService.getAdmin(token);
+      return await this.authenticationService.isAdmin(admin);
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

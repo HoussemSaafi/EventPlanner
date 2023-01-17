@@ -24,11 +24,11 @@ export class AuthenticationService {
   async createAdmin(email: string, password: string, firstName:string, lastName:string, facebookLink:string, instaLink:string, linkedinLink:string, image:string, role : string): Promise<void> {
     const hashedPassword = await bcrypt.hash(password, 10);
     role = "admin"
-    const newAdmin = this.userRepository.create({ email, password: hashedPassword, firstName, lastName, facebookLink, instaLink, linkedinLink, image, role });
-    await this.userRepository.save(newAdmin);
+    const newAdmin = this.adminRepository.create({ email, password: hashedPassword, firstName, lastName, facebookLink, instaLink, linkedinLink, image, role });
+    await this.adminRepository.save(newAdmin);
   }
 
-  async validateUserAdmin(email: string, password: string): Promise<User> {
+  async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (user && (await bcrypt.compare(password, user.password))) {
       return user;
@@ -36,17 +36,38 @@ export class AuthenticationService {
     return null;
   }
 
-  async login(user: User): Promise<{ access_token: string }> {
+  async validateAdmin(email: string, password: string): Promise<Admin> {
+    const admin = await this.adminRepository.findOne({ where: { email } });
+    if (admin && (await bcrypt.compare(password, admin.password))) {
+      return admin;
+    }
+    return null;
+  }
+
+  async loginUser(user: User): Promise<{ access_token: string }> {
     const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async loginAdmin(admin: Admin): Promise<{ access_token: string }> {
+    const payload = { email: admin.email, sub: admin.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
   
-  async getUserAdmin(token: string): Promise<User> {
+  async getUser(token: string): Promise<User> {
     const payload = this.jwtService.verify(token);
     const user = await this.userRepository.findOne({ where: { email: payload.email }});
     return user;
+  }
+
+  async getAdmin(token: string): Promise<Admin> {
+    const payload = this.jwtService.verify(token);
+    const admin = await this.adminRepository.findOne({ where: { email: payload.email }});
+    return admin;
   }
 
   async isAdmin(user: User): Promise<boolean> {

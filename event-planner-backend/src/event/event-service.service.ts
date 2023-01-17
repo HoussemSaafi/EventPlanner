@@ -15,10 +15,13 @@ export class EventService {
   }
 
   async getEventsByOrganizer(organizerId: number): Promise<Event[]> {
-    return this.eventRepository
+    const queryBuilder = this.eventRepository
       .createQueryBuilder('event')
-      .where('event.organizerId = :organizerId', { organizerId })
-      .getMany();
+      .where('event.organizerId = :organizerId', { organizerId });
+
+    const query = queryBuilder.getQuery();
+    console.log('query', query);
+    return queryBuilder.getMany();
   }
 
   async findOne(id: number): Promise<Event> {
