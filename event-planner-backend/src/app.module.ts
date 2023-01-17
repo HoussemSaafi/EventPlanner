@@ -6,10 +6,12 @@ import { UserModule } from './user/user.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { StaffModule } from './staff/staff.module';
 import { SponsorModule } from './sponsor/sponsor.module';
+import { SessionModule } from './session/session.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
+
 
 @Module({
   imports: [
@@ -32,6 +34,7 @@ import entities from './typeorm';
     EventModule,
     UserModule,
     ScheduleModule,
+    SessionModule,
     StaffModule,
     SponsorModule,
   ],

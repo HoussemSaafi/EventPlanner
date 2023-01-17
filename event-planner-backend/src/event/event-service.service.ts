@@ -14,6 +14,13 @@ export class EventService {
     return await this.eventRepository.find();
   }
 
+  async getEventsByOrganizer(organizerId: number): Promise<Event[]> {
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .where('event.organizerId = :organizerId', { organizerId })
+      .getMany();
+  }
+
   async findOne(id: number): Promise<Event> {
     return await this.eventRepository.findOne({ where: { id } });
   }

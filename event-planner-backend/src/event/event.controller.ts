@@ -20,6 +20,11 @@ export class EventController {
     return this.eventService.findAll();
   }
 
+  @Get('myEvents/:id')
+  async findAllEventsByAdmin(@Param('id') adminId: number): Promise<Event[]> {
+    return this.eventService.getEventsByOrganizer(adminId);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Event> {
     return this.eventService.findOne(id);
