@@ -41,8 +41,11 @@ export class AuthenticationService {
     if (admin && (await bcrypt.compare(password, admin.password))) {
       return admin;
     }
-    return null;
-  }
+    else {
+      return null;
+      }
+    }
+
 
   async loginUser(user: User): Promise<{ access_token: string }> {
     const payload = { email: user.email, sub: user.id };
