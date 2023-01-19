@@ -6,7 +6,7 @@ import {
   HttpStatus,
   HttpException,
   Get,
-  Query,
+  Query, Headers,
 } from '@nestjs/common';
 import { Res } from '@nestjs/common/decorators';
 import { User } from '../typeorm'
@@ -71,7 +71,8 @@ export class AuthenticationController {
   }
 
   @Get('meAdmin')
-  async getProfileAdmin(@Query('access_token') token: string, @Res() response) {
+  async getProfileAdmin( @Headers() headers, @Res() response) {
+    const token = headers.authorization.split(' ')[1];
     const user = await this.authenticationService.getAdmin(token);
     const data = JSON.stringify(user);
     return response.send(data);

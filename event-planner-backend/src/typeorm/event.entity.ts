@@ -7,7 +7,8 @@ import {
   ManyToMany,
   OneToOne,
   JoinColumn,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm';
 import { Admin } from './admin.entity';
 import { Schedule } from './schedule.entity';
@@ -60,20 +61,12 @@ export class Event {
   @JoinTable()
   attendees: User[];
 
-  @ManyToMany(type => Speaker,{
-    nullable: true,
-    onDelete: 'SET NULL'
-  })
-  @JoinTable()
-  speakers:Speaker[];
+  @OneToMany(type => Speaker,speaker => speaker.event)
+  speakers:Speaker;
   
 
-  @ManyToMany(type => Sponsor,{
-    nullable: true,
-    onDelete: 'SET NULL'
-  })
-  @JoinTable()
-  sponsors:Sponsor[];
+  @OneToMany(type => Sponsor,sponsor => sponsor.event)
+  sponsors:Sponsor;
 
   @ManyToMany(type => User, {
   nullable: true,

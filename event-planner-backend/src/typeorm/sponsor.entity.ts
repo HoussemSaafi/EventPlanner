@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 
 @Entity()
 export class Sponsor {
@@ -11,5 +11,8 @@ export class Sponsor {
 
   @Column({nullable: true})
   logo: string;
+
+  @ManyToOne(type => Event)
+  event:Event;
 }
 
