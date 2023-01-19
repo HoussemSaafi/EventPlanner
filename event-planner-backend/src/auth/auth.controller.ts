@@ -71,8 +71,7 @@ export class AuthenticationController {
   }
 
   @Get('meAdmin')
-  async getProfileAdmin( @Headers() headers, @Res() response) {
-    const token = headers.authorization.split(' ')[1];
+  async getProfileAdmin(@Query('access_token') token: string, @Res() response) {
     const user = await this.authenticationService.getAdmin(token);
     const data = JSON.stringify(user);
     return response.send(data);

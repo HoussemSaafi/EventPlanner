@@ -62,7 +62,7 @@ export class Event {
   attendees: User[];
 
   @OneToMany(type => Speaker,speaker => speaker.event)
-  speakers:Speaker;
+  speaker:Speaker;
   
 
   @OneToMany(type => Sponsor,sponsor => sponsor.event)

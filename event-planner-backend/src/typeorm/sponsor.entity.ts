@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {Event} from './event.entity';
 
 @Entity()
 export class Sponsor {

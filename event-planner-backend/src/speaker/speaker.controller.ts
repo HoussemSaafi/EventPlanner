@@ -13,7 +13,8 @@ import {SpeakerService} from "./speaker-service.service";
 
 @Controller('speakers')
 export class SpeakerController {
-  constructor(private readonly speakerService: SpeakerService) {}
+  constructor(private readonly speakerService: SpeakerService,
+  ) {}
 
   @Get()
   async findAll(): Promise<Speaker[]> {
@@ -25,7 +26,7 @@ export class SpeakerController {
     return this.speakerService.findOne(id);
   }
   @Post()
-  async create(@Body() speaker: Speaker): Promise<Speaker> {
+  async create(@Body() speaker: any): Promise<Speaker> {
     return this.speakerService.create(speaker);
   }
 

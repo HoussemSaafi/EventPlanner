@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 import {Admin} from "./admin.entity";
+import {Event} from "./event.entity";
 
 @Entity()
 export class Speaker {
@@ -30,4 +31,13 @@ export class Speaker {
 
   @Column({nullable: true})
   image:string;
+
+
+  constructor(firstName: string, lastName: string, job: string, company: string, event: Event) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.job = job;
+    this.company = company;
+    this.event = event;
+  }
 }

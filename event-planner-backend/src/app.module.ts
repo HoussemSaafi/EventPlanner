@@ -8,6 +8,7 @@ import { StaffModule } from './staff/staff.module';
 import { SponsorModule } from './sponsor/sponsor.module';
 import { SessionModule } from './session/session.module';
 import { AuthModule } from './auth/auth.module';
+import { SpeakerModule } from './speaker/speaker.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
@@ -37,6 +38,7 @@ import entities from './typeorm';
     SessionModule,
     StaffModule,
     SponsorModule,
+    SpeakerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
