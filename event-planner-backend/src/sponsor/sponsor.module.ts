@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Sponsor } from '../typeorm';
+import { Event, Sponsor} from '../typeorm';
 import { SponsorService } from './sponsor-service.service';
 import { SponsorController } from './sponsor.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Sponsor])],
+  imports: [TypeOrmModule.forFeature([Sponsor, Event])],
   controllers: [SponsorController],
   providers: [SponsorService],
 })

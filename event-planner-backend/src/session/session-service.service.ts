@@ -10,8 +10,13 @@ export class SessionService {
     private readonly sessionEntityRepository: Repository<SessionEntity>,
   ) {}
 
-  async findAll(): Promise<SessionEntity[]> {
-    return await this.sessionEntityRepository.find();
+  async findAll(eventId: number): Promise<SessionEntity[]> {
+    const sessions = this.sessionEntityRepository
+      .createQueryBuilder('session')
+      .leftJoin('session.event', 'event')
+      .where('event.id = :eventId', { eventId })
+      .getMany();
+    return sessions;
   }
 
   async findOne(id: number): Promise<SessionEntity> {

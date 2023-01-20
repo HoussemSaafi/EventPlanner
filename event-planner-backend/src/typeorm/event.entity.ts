@@ -11,10 +11,10 @@ import {
   OneToMany
 } from 'typeorm';
 import { Admin } from './admin.entity';
-import { Schedule } from './schedule.entity';
 import { Speaker } from './speaker.entity';
 import { Sponsor } from './sponsor.entity';
 import { User } from './user.entity';
+import { SessionEntity } from './session.entity';
 @Entity()
 export class Event {
   @PrimaryGeneratedColumn()
@@ -47,13 +47,6 @@ export class Event {
   @Column({ nullable: true })
   venue: string;
 
-  @OneToOne(() => Schedule,{
-    nullable: true,
-    onDelete: 'SET NULL'
-  })
-  @JoinColumn()
-  schedule:Schedule;
-
   @ManyToMany(type => User,{
     nullable: true,
     onDelete: 'SET NULL'
@@ -67,6 +60,9 @@ export class Event {
 
   @OneToMany(type => Sponsor,sponsor => sponsor.event)
   sponsors:Sponsor;
+
+  @OneToMany(type => SessionEntity,session => session.event)
+  sessions:SessionEntity;
 
   @ManyToMany(type => User, {
   nullable: true,

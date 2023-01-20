@@ -16,22 +16,25 @@ export class SpeakerController {
   constructor(private readonly speakerService: SpeakerService,
   ) {}
 
-  @Get()
-  async findAll(): Promise<Speaker[]> {
-    return this.speakerService.findAll();
+  @Post('/all')
+  async findAll(@Body() body : any): Promise<Speaker[]> {
+    const eventId = +body.eventId;
+    return this.speakerService.findSpeakersByEventId(eventId);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Speaker> {
-    return this.speakerService.findOne(id);
-  }
   @Post()
-  async create(@Body() speaker: any): Promise<Speaker> {
+  async create(@Body() speaker: any): Promise<any> {
     return this.speakerService.create(speaker);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() speaker: Speaker): Promise<void> {
+  @Post('/one')
+  async getOneByEvent(@Body() dto: any): Promise<any> {
+    const id = dto.id;
+    return this.speakerService.findOne(id);
+  }
+
+  @Put()
+  async update(@Body('id') id: number, @Body() speaker: Speaker): Promise<void> {
     speaker.id = id;
     await this.speakerService.update(speaker);
   }

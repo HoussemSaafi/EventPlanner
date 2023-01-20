@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Entity, PrimaryGeneratedColumn, JoinTable, Column, ManyToOne } from 'typeorm';
-import { Schedule } from './schedule.entity';
 import { Speaker } from './speaker.entity';
+import { Event } from './event.entity'
 @Entity()
 export class SessionEntity {
   @PrimaryGeneratedColumn()
@@ -9,9 +9,6 @@ export class SessionEntity {
 
   @Column({nullable: true})
   activity: string;
-
-  @Column()
-  date: Date;
 
   @Column()
   title: string;  
@@ -32,9 +29,8 @@ export class SessionEntity {
   })
   @JoinTable()
   speaker:Speaker;
-  
-  @ManyToOne(type => Schedule)
-  @JoinTable()
-  schedule: Schedule;
+
+  @ManyToOne(type => Event)
+  event:Event;
 
 }

@@ -15,9 +15,10 @@ import { SessionEntity } from '../typeorm';
 export class SessionController {
   constructor(private readonly sessionService: SessionService) {}
 
-  @Get()
-  async findAll(): Promise<SessionEntity[]> {
-    return this.sessionService.findAll();
+  @Post('/all')
+  async findAll(@Body() dto: any): Promise<SessionEntity[]> {
+    const eventId = +dto.eventId;
+    return this.sessionService.findAll(eventId);
   }
 
   @Get(':id')

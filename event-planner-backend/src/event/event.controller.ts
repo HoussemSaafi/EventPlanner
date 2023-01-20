@@ -25,18 +25,29 @@ export class EventController {
     return this.eventService.getEventsByOrganizer(adminId);
   }
 
+  @Post('/all')
+  async findAllAdmin(@Body() dto): Promise<Event[]>{
+    const adminId = dto.id;
+    return this.eventService.getEventsByOrganizer(adminId);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Event> {
     return this.eventService.findOne(id);
   }
   @Post()
-  async create(@Body() event: Event): Promise<Event> {
+  async create(@Body() event: any): Promise<Event> {
     return this.eventService.create(event);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() event: Event): Promise<void> {
-    event.id = id;
+  @Post('/one')
+  async getOneByEvent(@Body() dto: any): Promise<any> {
+    const id = dto.id;
+    return this.eventService.findOne(id);
+  }
+
+  @Put()
+  async update(@Body() event: Event): Promise<void> {
     await this.eventService.update(event);
   }
 

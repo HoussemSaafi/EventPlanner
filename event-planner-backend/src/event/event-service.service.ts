@@ -15,13 +15,12 @@ export class EventService {
   }
 
   async getEventsByOrganizer(organizerId: number): Promise<Event[]> {
-    const queryBuilder = this.eventRepository
+    const events = this.eventRepository
       .createQueryBuilder('event')
-      .where('event.organizerId = :organizerId', { organizerId });
-
-    const query = queryBuilder.getQuery();
-    console.log('query', query);
-    return queryBuilder.getMany();
+      .leftJoin('event.organizer', 'organizer')
+      .where('organizer.id = :organizerId', { organizerId })
+      .getMany();
+    return events;
   }
 
   async findOne(id: number): Promise<Event> {
@@ -29,11 +28,13 @@ export class EventService {
   }
 
   async create(event: Event): Promise<Event> {
+    event.isFree = true;
     return await this.eventRepository.save(event);
   }
 
   async update(event: Event): Promise<void> {
-    await this.eventRepository.update(event.id, event);
+    const eventId = +event.id;
+    await this.eventRepository.update(eventId, event);
   }
 
   async delete(id: number): Promise<void> {
