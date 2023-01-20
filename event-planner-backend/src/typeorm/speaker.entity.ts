@@ -9,19 +9,23 @@ export class Speaker {
   id: number;
 
   @Column()
-  firstName:string;
+  firstName: string;
 
   @Column()
-  lastName:string;
+  lastName: string;
 
   @Column()
   job: string;
 
   @Column({nullable: true})
-  company:string;
+  company: string;
 
   @Column({nullable: true})
-  description:string;
+  description: string;
+
+  @Column({nullable:true})
+    email : string;
+
   
   @Column({nullable: true})
   linkedinLink:string;
